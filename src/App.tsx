@@ -37,6 +37,7 @@ const preparedProducts: Product[] = productsFromServer.map(product => (
 export const App: React.FC = () => {
   const [products, setProducts] = useState(preparedProducts);
   const [input, setInput] = useState('');
+  const [shouldAllbeActive, setShouldAllbeActive] = useState(true);
   // const [error, setError] = useState('');
 
   const handleUserFilter = (user: User) => {
@@ -44,17 +45,21 @@ export const App: React.FC = () => {
       product.category?.user?.id === user.id
     ));
 
+    setShouldAllbeActive(false);
     setProducts(filteredProducts);
   };
 
   const resetFilters = () => {
     setProducts(preparedProducts);
     setInput('');
+    setShouldAllbeActive(true);
   };
 
   const showAll = () => {
+    setShouldAllbeActive(true);
     setProducts(preparedProducts);
   };
+
   // const choosenUser = usersFromServer.find(user => (
   //   user.id === selectedUser.id
   // )) || usersFromServer[0];
@@ -97,6 +102,11 @@ export const App: React.FC = () => {
               <a
                 data-cy="FilterAllUsers"
                 href="#/"
+                className={cn(
+                  {
+                    'is-active': shouldAllbeActive,
+                  },
+                )}
                 onClick={showAll}
               >
                 All
