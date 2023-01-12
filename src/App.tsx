@@ -47,6 +47,11 @@ export const App: React.FC = () => {
     setProducts(filteredProducts);
   };
 
+  const resetFilters = () => {
+    setProducts(preparedProducts);
+    setInput('');
+  };
+
   const showAll = () => {
     setProducts(preparedProducts);
   };
@@ -168,7 +173,7 @@ export const App: React.FC = () => {
                 data-cy="ResetAllButton"
                 href="#/"
                 className="button is-link is-outlined is-fullwidth"
-
+                onClick={resetFilters}
               >
                 Reset all filters
               </a>
