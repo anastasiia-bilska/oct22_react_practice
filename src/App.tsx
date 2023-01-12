@@ -171,6 +171,7 @@ export const App: React.FC = () => {
 
               {products.map(product => (
                 <a
+                  key={product.id}
                   data-cy="Category"
                   className="button mr-2 my-1 is-info"
                   href="#/"
@@ -258,7 +259,7 @@ export const App: React.FC = () => {
 
             <tbody>
               {products.map(product => (
-                <tr data-cy="Product">
+                <tr key={product.id} data-cy="Product">
                   <td className="has-text-weight-bold" data-cy="ProductId">
                     {product.id}
                   </td>
