@@ -61,11 +61,11 @@ export const App: React.FC = () => {
       product.name.toLowerCase().includes(part.toLowerCase())
     ));
 
-    if (products.length === 0) {
-      setError('No results');
-    } else {
-      setError('');
-    }
+    // if (products.length === 0) {
+    //   setError('No results');
+    // } else {
+    //   setError('');
+    // }
 
     setProducts(filteredProducts);
   };
