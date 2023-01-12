@@ -36,6 +36,7 @@ const preparedProducts: Product[] = productsFromServer.map(product => (
 
 export const App: React.FC = () => {
   const [products, setProducts] = useState(preparedProducts);
+  const [input, setInput] = useState('');
 
   const handleUserFilter = (user: User) => {
     const filteredProducts = preparedProducts.filter(product => (
@@ -51,6 +52,21 @@ export const App: React.FC = () => {
   // const choosenUser = usersFromServer.find(user => (
   //   user.id === selectedUser.id
   // )) || usersFromServer[0];
+
+  const handleInputChange = (part: string) => {
+    setInput(part);
+
+    const filteredProducts = products.filter(product => (
+      product.name.toLowerCase().includes(part.toLowerCase())
+    ));
+
+    setProducts(filteredProducts);
+  };
+
+  const clearInput = () => {
+    setInput('');
+    setProducts(preparedProducts);
+  };
 
   return (
     <div className="section">
@@ -94,21 +110,25 @@ export const App: React.FC = () => {
                   type="text"
                   className="input"
                   placeholder="Search"
-                  value="qwe"
+                  value={input}
+                  onChange={(event) => handleInputChange(event.target.value)}
                 />
 
                 <span className="icon is-left">
                   <i className="fas fa-search" aria-hidden="true" />
                 </span>
 
-                <span className="icon is-right">
-                  {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-                  <button
-                    data-cy="ClearButton"
-                    type="button"
-                    className="delete"
-                  />
-                </span>
+                {input && (
+                  <span className="icon is-right">
+                    {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                    <button
+                      data-cy="ClearButton"
+                      type="button"
+                      className="delete"
+                      onClick={clearInput}
+                    />
+                  </span>
+                )}
               </p>
             </div>
 
