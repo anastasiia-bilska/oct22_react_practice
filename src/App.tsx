@@ -37,6 +37,7 @@ const preparedProducts: Product[] = productsFromServer.map(product => (
 export const App: React.FC = () => {
   const [products, setProducts] = useState(preparedProducts);
   const [input, setInput] = useState('');
+  // const [error, setError] = useState('');
 
   const handleUserFilter = (user: User) => {
     const filteredProducts = preparedProducts.filter(product => (
@@ -60,6 +61,12 @@ export const App: React.FC = () => {
       product.name.toLowerCase().includes(part.toLowerCase())
     ));
 
+    if (products.length === 0) {
+      setError('No results');
+    } else {
+      setError('');
+    }
+
     setProducts(filteredProducts);
   };
 
@@ -67,6 +74,10 @@ export const App: React.FC = () => {
     setInput('');
     setProducts(preparedProducts);
   };
+
+  // if (products.length === 0) {
+  //   setError('No results');
+  // }
 
   return (
     <div className="section">
@@ -166,9 +177,11 @@ export const App: React.FC = () => {
         </div>
 
         <div className="box table-container">
-          <p data-cy="NoMatchingMessage">
-            No products matching selected criteria
-          </p>
+          {products.length === 0 && (
+            <p data-cy="NoMatchingMessage">
+              No products matching selected criteria
+            </p>
+          )}
 
           <table
             data-cy="ProductTable"
@@ -249,6 +262,7 @@ export const App: React.FC = () => {
                   </td>
                 </tr>
               ))}
+              {/* <p>{error}</p> */}
             </tbody>
           </table>
         </div>
