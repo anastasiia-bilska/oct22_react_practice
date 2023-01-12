@@ -117,11 +117,13 @@ export const App: React.FC = () => {
                   data-cy="FilterUser"
                   href="#/"
                   key={user.id}
-                  // className={cn(
-                  //   {
-                  //     'is-active': user.id === choosenUser.id,
-                  //   },
-                  // )}
+                  className={cn(
+                    {
+                      'is-active': products.every(product => (
+                        product.category?.user?.id === user.id
+                      )),
+                    },
+                  )}
                   onClick={() => handleUserFilter(user)}
                 >
                   {user.name}
